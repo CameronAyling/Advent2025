@@ -19,10 +19,13 @@ int main()
 
     vector<string> data;
 
+    int line_num = 0;
+
     if(file.is_open())
     {
         while(getline(file, line))
         {
+            line_num++;
             line_length = line.size();
 
             int to_add = 0;
@@ -32,7 +35,22 @@ int main()
             case 'L':
                 for(int i = 1; i < line_length; i++)
                 {
-                    to_add -= (line[i] - '0') * pow(10, line_length - i - 1);
+                    to_add += (line[i] - '0') * pow(10, line_length - i - 1);
+                }
+
+                for(int i = 0; i < to_add; i++)
+                {
+                    position--;
+
+                    if(position < 0)
+                    {
+                        position += 100;
+                    }
+
+                    if(position == 0)
+                    {
+                        zeroes++;
+                    }
                 }
                 break;
             case 'R':
@@ -40,27 +58,25 @@ int main()
                 {
                     to_add += (line[i] - '0') * pow(10, line_length - i - 1);
                 }
+
+                for(int i = 0; i < to_add; i++)
+                {
+                    position++;
+
+                    if(position > 99)
+                    {
+                        position -= 100;
+                    }
+
+                    if(position == 0)
+                    {
+                        zeroes++;
+                    }
+                }
                 break;
             }
 
-            position += to_add;
-
-            while(position < 0)
-            {
-                position += 100;
-            }
-
-            while(position > 99)
-            {
-                position -= 100;
-            }
-
-            cout << to_add << '\t' << position << endl;
-
-            if(position == 0)
-            {
-                zeroes++;
-            }
+            cout << line_num << '\t' << to_add << '\t' << position << endl;
         }
 
         file.close();
