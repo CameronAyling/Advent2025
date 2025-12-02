@@ -23,6 +23,7 @@
   "name":"Advent 2025",
   "resources":[
     {"id":{"name":"obj_doorcracker","path":"objects/obj_doorcracker/obj_doorcracker.yy",},},
+    {"id":{"name":"obj_inventorychecker","path":"objects/obj_inventorychecker/obj_inventorychecker.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
   "resourceType":"GMProject",
