@@ -25,7 +25,7 @@ int main()
         uint64_t higher_bound = 0;
 
         string curr_id_string;
-        string first_half_string;
+        string curr_rep_string;
 
         for(int i = 0; i < line.size() + 1; i++)
         {
@@ -53,46 +53,58 @@ int main()
                 for(uint64_t id = lower_bound; id <= higher_bound; id++)
                 {
                     curr_id_string = to_string(id);
-                    if(curr_id_string.size() % 2 == 1)
-                    {
-                        continue;
-                    }
-                    
-                    first_half_string = "";
 
-                    for(int j = 0; j < curr_id_string.size(); j++)
+                    for(int rep_len = 1; rep_len < curr_id_string.size(); rep_len++)
                     {
-                        first_half_string.push_back(curr_id_string[j]);
-                    }
+                        curr_rep_string = "";
 
-                    bool valid_id = false;
-
-                    for(int j = 0; j < curr_id_string.size() / 2; j++)
-                    {
-                        if(first_half_string[j] != curr_id_string[curr_id_string.size() / 2 + j])
+                        if(curr_id_string.size() % rep_len != 0)
                         {
-                            valid_id = true;
-                            break;
+                            continue;
                         }
-                    }
 
-                    if(valid_id) continue;
-
-                    bool id_already_found = false;
-                    for(int j = 0; j < invalid_ids.size(); j++)
-                    {
-                        if(id == invalid_ids[j])
+                        for(int j = 0; j < rep_len; j++)
                         {
-                            id_already_found = true;
-                            break;
+                            curr_rep_string.push_back(curr_id_string[j]);
                         }
-                    }
 
-                    if(!id_already_found)
-                    {
-                        invalid_ids.push_back(id);
-                        invalid_sum += id;
-                        cout << id << endl;
+                        bool valid_id = false;
+
+                        for(int j = 1; j < curr_id_string.size() / rep_len; j++)
+                        {
+                            for(int k = 0; k < rep_len; k++)
+                            {
+                                if(curr_rep_string[k] != curr_id_string[j * rep_len + k])
+                                {
+                                    valid_id = true;
+                                    break;
+                                }
+                            }
+
+                            if(valid_id)
+                            {
+                                break;
+                            }
+                        }
+
+                        if(valid_id) continue;
+
+                        bool id_already_found = false;
+                        for(int j = 0; j < invalid_ids.size(); j++)
+                        {
+                            if(id == invalid_ids[j])
+                            {
+                                id_already_found = true;
+                                break;
+                            }
+                        }
+
+                        if(!id_already_found)
+                        {
+                            invalid_ids.push_back(id);
+                            invalid_sum += id;
+                            cout << id << endl;
+                        }
                     }
                 }
 
