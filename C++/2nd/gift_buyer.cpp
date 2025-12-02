@@ -57,8 +57,7 @@ int main()
 
                     for(int rep_len = 1; rep_len <= curr_id_string.size() / 2; rep_len++)
                     {
-                        int rep_num = curr_id_string.size() % rep_len;
-                        if(rep_num != 0)
+                        if(curr_id_string.size() % rep_len != 0)
                         {
                             continue;
                         }
