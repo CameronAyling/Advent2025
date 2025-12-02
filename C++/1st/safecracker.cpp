@@ -17,72 +17,48 @@ int main()
 
     int zeroes = 0;
 
-    vector<string> data;
-
-    int line_num = 0;
-
     if(file.is_open())
     {
         while(getline(file, line))
         {
-            line_num++;
             line_length = line.size();
 
-            int to_add = 0;
+            bool is_left = line[0] == 'L';
 
-            switch(line[0])
+            zeroes -= (position == 0) && is_left;
+
+            for(int i = 1; i < line_length; i++)
             {
-            case 'L':
-                for(int i = 1; i < line_length; i++)
+                if(line_length - i < 3) 
                 {
-                    to_add += (line[i] - '0') * pow(10, line_length - i - 1);
+                    position += (line[i] - '0') * pow(10, line_length - i - 1) * (is_left ? -1 : 1);
                 }
-
-                for(int i = 0; i < to_add; i++)
+                else 
                 {
-                    position--;
-
-                    if(position < 0)
-                    {
-                        position += 100;
-                    }
-
-                    if(position == 0)
-                    {
-                        zeroes++;
-                    }
+                    zeroes += (line[i] - '0') * pow(10, line_length - i - 3);
                 }
-                break;
-            case 'R':
-                for(int i = 1; i < line_length; i++)
-                {
-                    to_add += (line[i] - '0') * pow(10, line_length - i - 1);
-                }
-
-                for(int i = 0; i < to_add; i++)
-                {
-                    position++;
-
-                    if(position > 99)
-                    {
-                        position -= 100;
-                    }
-
-                    if(position == 0)
-                    {
-                        zeroes++;
-                    }
-                }
-                break;
             }
 
-            cout << line_num << '\t' << to_add << '\t' << position << endl;
+            if(position > 99)
+            {
+                position -= 100;
+                zeroes++;
+            }
+            else if(position < 0)
+            {
+                zeroes++;
+                position += 100;
+            }
+            else if(position == 0)
+            {
+                zeroes++;
+            }
         }
 
         file.close();
     }
 
-    cout << zeroes;
+    cout << zeroes << endl;
 
     return 0;
 }
