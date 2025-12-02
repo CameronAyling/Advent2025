@@ -8,10 +8,13 @@
     "children":[],
     "name":"Default",
   },
-  "defaultScriptType":0,
+  "defaultScriptType":1,
   "Folders":[],
   "ForcedPrefabProjectReferences":[],
-  "IncludedFiles":[],
+  "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"gift_data.txt","CopyToMask":-1,"filePath":"datafiles","name":"gift_data.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"safe_data.txt","CopyToMask":-1,"filePath":"datafiles","name":"safe_data.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+  ],
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
@@ -19,6 +22,7 @@
   },
   "name":"Advent 2025",
   "resources":[
+    {"id":{"name":"obj_doorcracker","path":"objects/obj_doorcracker/obj_doorcracker.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
   "resourceType":"GMProject",
