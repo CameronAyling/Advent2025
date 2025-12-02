@@ -2,19 +2,20 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <ctime>
 
 using namespace std;
 
 int main()
 {
+    clock_t before = clock();
+
     ifstream file;
     file.open("gift_data.txt");
 
     string line;
 
     uint64_t invalid_sum = 0;
-
-    vector<uint64_t> invalid_ids;
 
     if(file.is_open())
     {
@@ -48,28 +49,28 @@ int main()
             }
             else
             {
-                cout << "Lower Bound: " << lower_bound << endl << "Higher Bound: " << higher_bound << endl;
+                vector<uint64_t> invalid_ids;
 
                 for(uint64_t id = lower_bound; id <= higher_bound; id++)
                 {
                     curr_id_string = to_string(id);
 
-                    for(int rep_len = 1; rep_len < curr_id_string.size(); rep_len++)
+                    for(int rep_len = 1; rep_len <= curr_id_string.size() / 2; rep_len++)
                     {
-                        curr_rep_string = "";
-
-                        if(curr_id_string.size() % rep_len != 0)
+                        int rep_num = curr_id_string.size() % rep_len;
+                        if(rep_num != 0)
                         {
                             continue;
                         }
 
+                        curr_rep_string = "";
                         for(int j = 0; j < rep_len; j++)
                         {
                             curr_rep_string.push_back(curr_id_string[j]);
                         }
 
                         bool valid_id = false;
-
+                        
                         for(int j = 1; j < curr_id_string.size() / rep_len; j++)
                         {
                             for(int k = 0; k < rep_len; k++)
@@ -103,7 +104,6 @@ int main()
                         {
                             invalid_ids.push_back(id);
                             invalid_sum += id;
-                            cout << id << endl;
                         }
                     }
                 }
@@ -113,6 +113,8 @@ int main()
                 higher_bound = 0;
             }
         }
+
+        cout << (clock() - before) / (double)CLOCKS_PER_SEC << endl;
 
         cout << invalid_sum;
 
