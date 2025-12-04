@@ -14,6 +14,7 @@ int main()
 
     vector<vector<char>> roll_placements;
     int accessible_rolls = 0;
+    int last_accessible_rolls = -1;
 
     while(getline(file, line))
     {
@@ -27,94 +28,106 @@ int main()
         roll_placements.push_back(this_row);
     }
 
-    for(int i = 0; i < roll_placements.size(); i++)
+    while (last_accessible_rolls != accessible_rolls)
     {
-        for(int j = 0; j < roll_placements[i].size(); j++)
+        last_accessible_rolls = accessible_rolls;
+        vector<pair<int, int>> x_placements;
+
+        for(int i = 0; i < roll_placements.size(); i++)
         {
-            if(roll_placements[i][j] == '@')
+            for(int j = 0; j < roll_placements[i].size(); j++)
             {
-                int adjacent_rolls = 0;
-
-                // Check Upwards
-                if(i > 0)
+                if(roll_placements[i][j] == '@')
                 {
-                    // Up Left
+                    int adjacent_rolls = 0;
+
+                    // Check Upwards
+                    if(i > 0)
+                    {
+                        // Up Left
+                        if(j > 0)
+                        {
+                            if(roll_placements[i - 1][j - 1] == '@' || roll_placements[i - 1][j - 1] == 'x')
+                            {
+                                adjacent_rolls++;
+                            }
+                        }
+
+                        // Up
+                        if(roll_placements[i - 1][j] == '@' || roll_placements[i - 1][j] == 'x')
+                        {
+                            adjacent_rolls++;
+                        }
+
+                        // Up Right
+                        if(j < roll_placements[i].size() - 1)
+                        {
+                            if(roll_placements[i - 1][j + 1] == '@' || roll_placements[i - 1][j + 1] == 'x')
+                            {
+                                adjacent_rolls++;
+                            }   
+                        }
+                    }
+
+                    // Left
                     if(j > 0)
                     {
-                        if(roll_placements[i - 1][j - 1] == '@' || roll_placements[i - 1][j - 1] == 'x')
+                        if(roll_placements[i][j - 1] == '@' || roll_placements[i][j - 1] == 'x')
                         {
                             adjacent_rolls++;
                         }
                     }
 
-                    // Up
-                    if(roll_placements[i - 1][j] == '@' || roll_placements[i - 1][j] == 'x')
-                    {
-                        adjacent_rolls++;
-                    }
-
-                    // Up Right
+                    // Right
                     if(j < roll_placements[i].size() - 1)
                     {
-                        if(roll_placements[i - 1][j + 1] == '@' || roll_placements[i - 1][j + 1] == 'x')
-                        {
-                            adjacent_rolls++;
-                        }   
-                    }
-                }
-
-                // Left
-                if(j > 0)
-                {
-                    if(roll_placements[i][j - 1] == '@' || roll_placements[i][j - 1] == 'x')
-                    {
-                        adjacent_rolls++;
-                    }
-                }
-
-                // Right
-                if(j < roll_placements[i].size() - 1)
-                {
-                    if(roll_placements[i][j + 1] == '@' || roll_placements[i][j + 1] == 'x')
-                    {
-                        adjacent_rolls++;
-                    }
-                }
-
-                // Check Downwards
-                if(i < roll_placements.size() - 1)
-                {
-                    // Up Left
-                    if(j > 0)
-                    {
-                        if(roll_placements[i + 1][j - 1] == '@' || roll_placements[i + 1][j - 1] == 'x')
+                        if(roll_placements[i][j + 1] == '@' || roll_placements[i][j + 1] == 'x')
                         {
                             adjacent_rolls++;
                         }
                     }
 
-                    // Up
-                    if(roll_placements[i + 1][j] == '@' || roll_placements[i + 1][j] == 'x')
+                    // Check Downwards
+                    if(i < roll_placements.size() - 1)
                     {
-                        adjacent_rolls++;
-                    }
+                        // Up Left
+                        if(j > 0)
+                        {
+                            if(roll_placements[i + 1][j - 1] == '@' || roll_placements[i + 1][j - 1] == 'x')
+                            {
+                                adjacent_rolls++;
+                            }
+                        }
 
-                    // Up Right
-                    if(j < roll_placements[i].size() - 1)
-                    {
-                        if(roll_placements[i + 1][j + 1] == '@' || roll_placements[i + 1][j + 1] == 'x')
+                        // Up
+                        if(roll_placements[i + 1][j] == '@' || roll_placements[i + 1][j] == 'x')
                         {
                             adjacent_rolls++;
-                        }   
-                    }
-                }
+                        }
 
-                if(adjacent_rolls < 4)
-                {
-                    roll_placements[i][j] = 'x';
-                    accessible_rolls++;
+                        // Up Right
+                        if(j < roll_placements[i].size() - 1)
+                        {
+                            if(roll_placements[i + 1][j + 1] == '@' || roll_placements[i + 1][j + 1] == 'x')
+                            {
+                                adjacent_rolls++;
+                            }   
+                        }
+                    }
+
+                    if(adjacent_rolls < 4)
+                    {
+                        roll_placements[i][j] = 'x';
+                        x_placements.push_back(make_pair(i, j));
+                        accessible_rolls++;
+                    }
                 }
             }
+        }
+
+        for(int i = 0; i < x_placements.size(); i++)
+        {
+            roll_placements[x_placements[i].first][x_placements[i].second] = '.';
         }
     }
 
