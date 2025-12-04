@@ -13,6 +13,7 @@
   "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"gift_data.txt","CopyToMask":-1,"filePath":"datafiles","name":"gift_data.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+    {"$GMIncludedFile":"","%Name":"lift_data.txt","CopyToMask":-1,"filePath":"datafiles","name":"lift_data.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"safe_data.txt","CopyToMask":-1,"filePath":"datafiles","name":"safe_data.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
   ],
   "isEcma":false,
@@ -24,6 +25,7 @@
   "resources":[
     {"id":{"name":"obj_doorcracker","path":"objects/obj_doorcracker/obj_doorcracker.yy",},},
     {"id":{"name":"obj_inventorychecker","path":"objects/obj_inventorychecker/obj_inventorychecker.yy",},},
+    {"id":{"name":"obj_liftfixer","path":"objects/obj_liftfixer/obj_liftfixer.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
   "resourceType":"GMProject",

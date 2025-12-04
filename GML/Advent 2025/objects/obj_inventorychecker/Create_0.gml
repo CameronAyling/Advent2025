@@ -163,5 +163,4 @@ function day_two_part_two()
 }
 
 day_two_part_one();
-
 day_two_part_two();

@@ -37,9 +37,9 @@ int main()
             curr_jolt += highest_jolt;
         }
 
-        cout << curr_jolt << endl;
-
         joltage_sum += curr_jolt;
+
+        cout << curr_jolt << endl;
     }
 
     cout << joltage_sum;
