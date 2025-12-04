@@ -31,7 +31,6 @@ int main()
     while (last_accessible_rolls != accessible_rolls)
     {
         last_accessible_rolls = accessible_rolls;
-        vector<pair<int, int>> x_placements;
 
         for(int i = 0; i < roll_placements.size(); i++)
         {
@@ -47,14 +46,14 @@ int main()
                         // Up Left
                         if(j > 0)
                         {
-                            if(roll_placements[i - 1][j - 1] == '@' || roll_placements[i - 1][j - 1] == 'x')
+                            if(roll_placements[i - 1][j - 1] == '@')
                             {
                                 adjacent_rolls++;
                             }
                         }
 
                         // Up
-                        if(roll_placements[i - 1][j] == '@' || roll_placements[i - 1][j] == 'x')
+                        if(roll_placements[i - 1][j] == '@')
                         {
                             adjacent_rolls++;
                         }
@@ -62,7 +61,7 @@ int main()
                         // Up Right
                         if(j < roll_placements[i].size() - 1)
                         {
-                            if(roll_placements[i - 1][j + 1] == '@' || roll_placements[i - 1][j + 1] == 'x')
+                            if(roll_placements[i - 1][j + 1] == '@')
                             {
                                 adjacent_rolls++;
                             }   
@@ -72,7 +71,7 @@ int main()
                     // Left
                     if(j > 0)
                     {
-                        if(roll_placements[i][j - 1] == '@' || roll_placements[i][j - 1] == 'x')
+                        if(roll_placements[i][j - 1] == '@')
                         {
                             adjacent_rolls++;
                         }
@@ -81,7 +80,7 @@ int main()
                     // Right
                     if(j < roll_placements[i].size() - 1)
                     {
-                        if(roll_placements[i][j + 1] == '@' || roll_placements[i][j + 1] == 'x')
+                        if(roll_placements[i][j + 1] == '@')
                         {
                             adjacent_rolls++;
                         }
@@ -93,14 +92,14 @@ int main()
                         // Up Left
                         if(j > 0)
                         {
-                            if(roll_placements[i + 1][j - 1] == '@' || roll_placements[i + 1][j - 1] == 'x')
+                            if(roll_placements[i + 1][j - 1] == '@')
                             {
                                 adjacent_rolls++;
                             }
                         }
 
                         // Up
-                        if(roll_placements[i + 1][j] == '@' || roll_placements[i + 1][j] == 'x')
+                        if(roll_placements[i + 1][j] == '@')
                         {
                             adjacent_rolls++;
                         }
@@ -108,7 +107,7 @@ int main()
                         // Up Right
                         if(j < roll_placements[i].size() - 1)
                         {
-                            if(roll_placements[i + 1][j + 1] == '@' || roll_placements[i + 1][j + 1] == 'x')
+                            if(roll_placements[i + 1][j + 1] == '@')
                             {
                                 adjacent_rolls++;
                             }   
@@ -117,17 +116,11 @@ int main()
 
                     if(adjacent_rolls < 4)
                     {
-                        roll_placements[i][j] = 'x';
-                        x_placements.push_back(make_pair(i, j));
+                        roll_placements[i][j] = '.';
                         accessible_rolls++;
                     }
                 }
             }
-        }
-
-        for(int i = 0; i < x_placements.size(); i++)
-        {
-            roll_placements[x_placements[i].first][x_placements[i].second] = '.';
         }
     }
 
